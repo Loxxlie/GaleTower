@@ -1,12 +1,14 @@
 CC 			:= g++
 
 TARGET 		:= galetower
+TESTTARGET	:= tests
 
 #The Directories, Source, Includes, Objects, Binary and Resources
 SRCDIR      := src
-INCDIR      := inc
+INCDIR      := src
 BUILDDIR    := obj
 TARGETDIR   := bin
+TESTDIR		:= tests
 RESDIR      := res
 SRCEXT      := cpp
 DEPEXT      := d

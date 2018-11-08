@@ -1,23 +1,58 @@
-#include <SFML/Graphics.hpp>
 
 #include "game.hpp"
 
-void Game::Run() {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+Game::Game()
+{
+    runningFlag = false;
+    messageBus = new MessageBus();
+    renderer = new Renderer(messageBus);
+}
 
-    while (window.isOpen())
+Game::~Game()
+{
+    delete renderer;
+    delete messageBus;
+}
+
+void Game::run()
+{
+    startup();
+    
+    while (runningFlag)
     {
         sf::Event event;
-        while (window.pollEvent(event))
+        while (renderer->getWindow()->pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
-                window.close();
+            {
+                renderer->getWindow()->close();
+                runningFlag = false;
+            }
         }
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+        update();
+        render();
     }
+
+    shutdown();
 }
+
+void Game::update()
+{
+    messageBus->notify();
+}
+
+void Game::render()
+{
+    renderer->update();
+}
+
+void Game::startup()
+{
+    messageBus->sendMessage(std::string("SPAWN_GREEN_CIRCLE"));
+
+    runningFlag = true;
+}
+
+void Game::shutdown()
+{}
