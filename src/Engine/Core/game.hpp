@@ -1,8 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Engine/renderer.hpp"
-#include "Engine/messagebus.hpp"
+#include "Engine/Systems/renderer.hpp"
+#include "Engine/Systems/messagebus.hpp"
 
 class Game
 {

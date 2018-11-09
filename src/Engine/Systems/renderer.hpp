@@ -1,8 +1,8 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "Engine/system.hpp"
-#include "Engine/messagebus.hpp"
+#include "Engine/Systems/system.hpp"
+#include "Engine/Systems/messagebus.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
