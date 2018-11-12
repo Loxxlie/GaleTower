@@ -1,17 +1,22 @@
 
 #include "Engine/Core/game.hpp"
+#include "Game/States/greencircle.hpp"
 
 Game::Game()
 {
     runningFlag = false;
     messageBus = new MessageBus();
     renderer = new Renderer(messageBus);
+    statemanager = new GameStateManager(messageBus);
+    gamecontroller = new GameController(messageBus, this);
 }
 
 Game::~Game()
 {
     delete renderer;
     delete messageBus;
+    delete statemanager;
+    delete gamecontroller;
 }
 
 void Game::run()
@@ -22,13 +27,7 @@ void Game::run()
     {
         sf::Event event;
         while (renderer->getWindow()->pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
-                renderer->getWindow()->close();
-                runningFlag = false;
-            }
-        }
+            statemanager->handleEvents(event);
 
         update();
         render();
@@ -44,15 +43,22 @@ void Game::update()
 
 void Game::render()
 {
-    renderer->update();
+    renderer->render();
 }
 
 void Game::startup()
 {
-    messageBus->sendMessage(std::string("SPAWN_GREEN_CIRCLE"));
+    GameState* green_circle = new GreenCircle(messageBus);
+    statemanager->pushState(green_circle);
 
     runningFlag = true;
 }
 
 void Game::shutdown()
 {}
+
+void Game::closeGame()
+{
+    renderer->getWindow()->close();
+    runningFlag = false;
+}

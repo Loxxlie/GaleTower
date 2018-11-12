@@ -5,27 +5,15 @@
 #include <vector>
 #include <queue>
 
-Message::Message(const std::string event)
-{
-    messageEvent = event;
-}
-
-std::string Message::getEvent()
-{
-    return messageEvent;
-}
-
 MessageBus::MessageBus() {}
-MessageBus::~MessageBus() {}
 
 void MessageBus::addReceiver(std::function<void(Message)> messageReceiver)
 {
     receivers.push_back(messageReceiver);
 }
 
-void MessageBus::sendMessage(Message message)
+void MessageBus::postMessage(Message message)
 {
-    std::cout << "MessageBus: Pushing message " << message.getEvent() << std::endl;
     messages.push(message);
 }
 

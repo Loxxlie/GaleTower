@@ -5,8 +5,8 @@
 
 System::System(MessageBus *messageBus)
 {
-    messageBus = messageBus;
-    messageBus->addReceiver(getNotifyFunc());
+    this->messageBus = messageBus;
+    this->messageBus->addReceiver(getNotifyFunc());
 }
 
 std::function<void(Message)> System::getNotifyFunc()
@@ -17,7 +17,11 @@ std::function<void(Message)> System::getNotifyFunc()
     return messageListener;
 }
 
-void System::send(Message message)
+void System::postMessage(std::string event, void *data)
 {
-    messageBus->sendMessage(message);
+    Message msg;
+    msg.event = event;
+    msg.sender = this;
+    std::cout << "Posting message " << msg.event << std::endl;
+    messageBus->postMessage(msg);
 }

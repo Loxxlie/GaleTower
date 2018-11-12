@@ -15,7 +15,7 @@ Renderer::~Renderer()
 
 void Renderer::handleMessage(Message message)
 {
-    if(message.getEvent() == "SPAWN_GREEN_CIRCLE")
+    if(message.event == "SPAWN_GREEN_CIRCLE")
     {
         std::cout << "Renderer: Received message SPAWN_GREEN_CIRCLE" << std::endl;
         sf::CircleShape shape(100.f);
@@ -24,7 +24,7 @@ void Renderer::handleMessage(Message message)
     }
 }
 
-void Renderer::update()
+void Renderer::render()
 {
     window->clear();
     for(auto iter = objects.begin(); iter != objects.end(); iter++)

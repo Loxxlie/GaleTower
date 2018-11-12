@@ -6,24 +6,21 @@
 #include <vector>
 #include <queue>
 
-class Message
-{
-public:
-    Message(const std::string event);
-    std::string getEvent();
+class System;
 
-private:
-    std::string messageEvent;
+struct Message
+{
+    System *sender;
+    std::string event;
 };
 
 class MessageBus
 {
 public:
     MessageBus();
-    ~MessageBus();
 
     void addReceiver(std::function<void(Message)> messageReceiver);
-    void sendMessage(Message message);
+    void postMessage(Message message);
     void notify();
 
 private:
