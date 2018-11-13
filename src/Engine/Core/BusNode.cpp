@@ -1,15 +1,16 @@
-#include "Engine/Systems/system.hpp"
-#include "Engine/Systems/messagebus.hpp"
+#include "Engine/Core/BusNode.hpp"
 
-#include <functional>
+#include <iostream>
 
-System::System(MessageBus *messageBus)
+#include "Engine/Core/Message.hpp"
+
+BusNode::BusNode(MessageBus *messageBus)
 {
     this->messageBus = messageBus;
     this->messageBus->addReceiver(getNotifyFunc());
 }
 
-std::function<void(Message)> System::getNotifyFunc()
+std::function<void(Message)> BusNode::getNotifyFunc()
 {
     auto messageListener = [=](Message message) -> void {
         handleMessage(message);
@@ -17,7 +18,7 @@ std::function<void(Message)> System::getNotifyFunc()
     return messageListener;
 }
 
-void System::postMessage(std::string event, void *data)
+void BusNode::postMessage(std::string event, void *data)
 {
     Message msg;
     msg.event = event;

@@ -1,10 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Engine/Systems/renderer.hpp"
-#include "Engine/Systems/messagebus.hpp"
-#include "Engine/Core/gamestatemanager.hpp"
-#include "Engine/Core/gamecontroller.hpp"
+class Renderer;
+class MessageBus;
+class GameStateManager;
+class GameController;
 
 class Game
 {

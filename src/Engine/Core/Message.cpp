@@ -1,9 +1,4 @@
-#include "messagebus.hpp"
-
-#include <iostream>
-#include <functional>
-#include <vector>
-#include <queue>
+#include "Engine/Core/Message.hpp"
 
 MessageBus::MessageBus() {}
 

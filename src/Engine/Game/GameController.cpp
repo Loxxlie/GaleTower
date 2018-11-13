@@ -1,9 +1,10 @@
-#include "Engine/Core/gamecontroller.hpp"
-#include "Engine/Systems/messagebus.hpp"
-#include "Engine/Core/game.hpp"
+#include "Engine/Game/GameController.hpp"
+
+#include "Engine/Core/Message.hpp"
+#include "Engine/Game/Game.hpp"
 
 GameController::GameController(MessageBus *messageBus, Game* game)
-: System(messageBus)
+: BusNode(messageBus)
 {
     _game = game;
 }

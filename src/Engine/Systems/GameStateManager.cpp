@@ -1,6 +1,9 @@
-#include "Engine/Core/gamestatemanager.hpp"
+#include "Engine/Systems/GameStateManager.hpp"
 
 #include <iostream>
+
+#include "Engine/Core/Message.hpp"
+#include "Engine/Systems/GameState.hpp"
 
 void GameStateManager::init()
 {}
@@ -51,3 +54,6 @@ void GameStateManager::render()
             (*iter)->render();
     }
 }
+
+void GameStateManager::handleMessage(Message message)
+{}

@@ -1,16 +1,16 @@
-#ifndef MESSAGEBUS_H
-#define MESSAGEBUS_H
+#ifndef MESSAGE_H
+#define MESSAGE_H
 
 #include <iostream>
 #include <functional>
 #include <vector>
 #include <queue>
 
-class System;
+class BusNode;
 
 struct Message
 {
-    System *sender;
+    BusNode *sender;
     std::string event;
 };
 

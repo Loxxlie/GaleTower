@@ -1,7 +1,11 @@
-#include "Engine/Systems/renderer.hpp"
+#include "Engine/Systems/Renderer.hpp"
+
+#include <iostream>
+
+#include "Engine/Core/Message.hpp"
 
 Renderer::Renderer(MessageBus* messageBus)
-: System(messageBus)
+: BusNode(messageBus)
 {
     window = new sf::RenderWindow(sf::VideoMode(200, 200), "SFML works!");
 }

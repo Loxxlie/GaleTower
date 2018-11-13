@@ -1,16 +1,19 @@
-#ifndef STATEMANAGER_H
-#define STATEMANAGER_H
+#ifndef GAMESTATEMANAGER_H
+#define GAMESTATEMANAGER_H
 
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "Engine/Core/gamestate.hpp"
-#include "Engine/Systems/messagebus.hpp"
+#include "Engine/Core/BusNode.hpp"
 
-class GameStateManager : public System
+class Message;
+class MessageBus;
+class GameState;
+
+class GameStateManager : public BusNode
 {
 public:
-    GameStateManager(MessageBus *messageBus) : System(messageBus) {}
+    GameStateManager(MessageBus *messageBus) : BusNode(messageBus) {}
 
     void init();
     void cleanup();
@@ -25,7 +28,7 @@ public:
 private:
     std::vector<GameState*> stateStack;
 
-    void handleMessage(Message message) {}
+    void handleMessage(Message message);
 };
 
 #endif

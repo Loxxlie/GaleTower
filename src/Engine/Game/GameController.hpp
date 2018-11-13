@@ -1,13 +1,13 @@
 #ifndef GAMECONTROLLER_H
 #define GAMECONTROLLER_H
 
-#include "Engine/Systems/system.hpp"
+#include "Engine/Core/BusNode.hpp"
 
 class Game;
 class Message;
 class MessageBus;
 
-class GameController : public System
+class GameController : public BusNode
 {
 public:
     GameController(MessageBus *messageBus, Game *game);

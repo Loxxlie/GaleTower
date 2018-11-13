@@ -1,15 +1,15 @@
-#ifndef SYSTEM_H
-#define SYSTEM_H
+#ifndef BUSNODE_H
+#define BUSNODE_H
 
 #include <functional>
 
 class Message;
 class MessageBus;
 
-class System
+class BusNode
 {
 public:
-    System(MessageBus *messageBus);
+    BusNode(MessageBus *messageBus);
 
 protected:
     MessageBus *messageBus;

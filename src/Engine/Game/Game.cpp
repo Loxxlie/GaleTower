@@ -1,6 +1,11 @@
+#include "Engine/Game/Game.hpp"
 
-#include "Engine/Core/game.hpp"
-#include "Game/States/greencircle.hpp"
+#include "Engine/Core/Message.hpp"
+#include "Engine/Systems/Renderer.hpp"
+#include "Engine/Systems/GameStateManager.hpp"
+#include "Engine/Game/GameController.hpp"
+
+#include "Game/States/GreenCircle.hpp"
 
 Game::Game()
 {

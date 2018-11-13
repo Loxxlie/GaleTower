@@ -4,9 +4,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-#include "Engine/Systems/messagebus.hpp"
+#include "Engine/Systems/GameState.hpp"
 
-class GameState;
+class Message;
+class MessageBus;
 
 class GreenCircle : public GameState
 {

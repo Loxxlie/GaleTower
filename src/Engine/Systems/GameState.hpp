@@ -3,12 +3,14 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Engine/Systems/system.hpp"
-#include "Engine/Systems/messagebus.hpp"
+#include "Engine/Core/BusNode.hpp"
 
-class GameState : public System {
+class Message;
+class MessageBus;
+
+class GameState : public BusNode {
 public:
-    GameState(MessageBus *messageBus) : System(messageBus) {}
+    GameState(MessageBus *messageBus) : BusNode(messageBus) {}
 
     virtual void init() = 0;
     virtual void cleanup() = 0;

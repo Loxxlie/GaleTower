@@ -4,10 +4,12 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "Engine/Systems/system.hpp"
-#include "Engine/Systems/messagebus.hpp"
+#include "Engine/Core/BusNode.hpp"
 
-class Renderer : public System
+class Message;
+class MessageBus;
+
+class Renderer : public BusNode
 {
 public:
     Renderer(MessageBus* messageBus);
