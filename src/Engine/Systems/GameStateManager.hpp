@@ -23,7 +23,7 @@ public:
 
     void handleEvents(sf::Event event);
     void update();
-    void render();
+    void render(sf::RenderTarget& target) const;
 
 private:
     std::vector<GameState*> stateStack;

@@ -25,7 +25,7 @@ public:
 
     virtual void handleEvents(sf::Event event) = 0;
     virtual void update() = 0;
-    virtual void render() = 0;
+    virtual void render(sf::RenderTarget& target) const = 0;
 
 private:
     bool m_isPaused = false;

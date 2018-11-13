@@ -48,7 +48,8 @@ void Game::update()
 
 void Game::render()
 {
-    renderer->render();
+    statemanager->render(*(renderer->getWindow()));
+    // renderer->render();
 }
 
 void Game::startup()

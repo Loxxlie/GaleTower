@@ -46,12 +46,12 @@ void GameStateManager::update()
     }
 }
 
-void GameStateManager::render()
+void GameStateManager::render(sf::RenderTarget& target) const
 {
     for (auto iter = stateStack.begin(); iter != stateStack.end(); iter++)
     {
         if (!(*iter)->isHidden())
-            (*iter)->render();
+            (*iter)->render(target);
     }
 }
 

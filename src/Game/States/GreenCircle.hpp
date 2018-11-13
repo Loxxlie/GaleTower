@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "Engine/Systems/GameState.hpp"
+#include "Game/Objects/ObjGreenCircle.hpp"
 
 class Message;
 class MessageBus;
@@ -16,10 +17,13 @@ public:
 
     void init()
     {
-        postMessage(std::string("SPAWN_GREEN_CIRCLE"));
+        circle = new ObjGreenCircle();
     }
 
-    void cleanup() {}
+    void cleanup() 
+    {
+        delete circle;
+    }
 
     void handleEvents(sf::Event event)
     {
@@ -30,10 +34,15 @@ public:
     }
 
     void update() {}
-    void render() {}
+    void render(sf::RenderTarget& target) const
+    {
+        target.draw(*circle);
+    }
 
 private:
     void handleMessage(Message message) {}
+
+    ObjGreenCircle* circle;
 };
 
 #endif
