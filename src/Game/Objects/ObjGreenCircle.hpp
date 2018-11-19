@@ -3,6 +3,8 @@
 
 #include "Engine/Scene/SceneNode.hpp"
 
+#include <iostream>
+
 class ObjGreenCircle : public SceneNode
 {
 public:

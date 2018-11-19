@@ -1,6 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <SFML/Graphics.hpp>
+
+#include "Engine/Core/ResourceHolder.hpp"
+#include "Engine/Core/ResourceIdentifiers.hpp"
+
 class Renderer;
 class MessageBus;
 class GameStateManager;
@@ -23,10 +28,12 @@ public:
 private:
     bool runningFlag;
 
-    Renderer *renderer;
     MessageBus *messageBus;
     GameStateManager *statemanager;
     GameController *gamecontroller;
+    FontHolder *fontholder;
+
+    sf::RenderWindow *window;
 };
 
 #endif

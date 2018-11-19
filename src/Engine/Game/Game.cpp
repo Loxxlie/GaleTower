@@ -1,9 +1,9 @@
 #include "Engine/Game/Game.hpp"
 
 #include "Engine/Core/Message.hpp"
-#include "Engine/Systems/Renderer.hpp"
 #include "Engine/Systems/GameStateManager.hpp"
 #include "Engine/Game/GameController.hpp"
+#include "Engine/Core/ResourceIdentifiers.hpp"
 
 #include "Game/States/GreenCircle.hpp"
 
@@ -11,17 +11,22 @@ Game::Game()
 {
     runningFlag = false;
     messageBus = new MessageBus();
-    renderer = new Renderer(messageBus);
     statemanager = new GameStateManager(messageBus);
     gamecontroller = new GameController(messageBus, this);
+    fontholder = new FontHolder();
+
+    window = new sf::RenderWindow(sf::VideoMode(800, 600), "SFML works!");
 }
 
 Game::~Game()
 {
-    delete renderer;
     delete messageBus;
     delete statemanager;
     delete gamecontroller;
+
+    if(window->isOpen())
+        window->close();
+    delete window;
 }
 
 void Game::run()
@@ -31,7 +36,7 @@ void Game::run()
     while (runningFlag)
     {
         sf::Event event;
-        while (renderer->getWindow()->pollEvent(event))
+        while (window->pollEvent(event))
             statemanager->handleEvents(event);
 
         update();
@@ -48,8 +53,9 @@ void Game::update()
 
 void Game::render()
 {
-    statemanager->render(*(renderer->getWindow()));
-    // renderer->render();
+    window->clear();
+    statemanager->render(*(window));
+    window->display();
 }
 
 void Game::startup()
@@ -65,6 +71,6 @@ void Game::shutdown()
 
 void Game::closeGame()
 {
-    renderer->getWindow()->close();
+    window->close();
     runningFlag = false;
 }
