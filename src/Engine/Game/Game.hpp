@@ -31,9 +31,10 @@ private:
     MessageBus *messageBus;
     GameStateManager *statemanager;
     GameController *gamecontroller;
-    FontHolder *fontholder;
 
-    sf::RenderWindow *window;
+    FontHolder fontholder;
+    TextureHolder textureholder;
+    sf::RenderWindow* window;
 };
 
 #endif

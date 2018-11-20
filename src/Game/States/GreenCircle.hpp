@@ -13,7 +13,7 @@ class MessageBus;
 class GreenCircle : public GameState
 {
 public:
-    GreenCircle(MessageBus *messageBus) : GameState(messageBus) {}
+    GreenCircle(Context context, MessageBus *messageBus) : GameState(context, messageBus) {}
 
     void init()
     {

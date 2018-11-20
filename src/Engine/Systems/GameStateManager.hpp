@@ -5,15 +5,17 @@
 #include <SFML/Graphics.hpp>
 
 #include "Engine/Core/BusNode.hpp"
+#include "Engine/Core/Context.hpp"
 
 class Message;
 class MessageBus;
 class GameState;
+struct Context;
 
 class GameStateManager : public BusNode
 {
 public:
-    GameStateManager(MessageBus *messageBus) : BusNode(messageBus) {}
+    GameStateManager(Context context, MessageBus *messageBus) : BusNode(messageBus), context(context) {}
 
     void init();
     void cleanup();
@@ -27,6 +29,7 @@ public:
 
 private:
     std::vector<GameState*> stateStack;
+    Context context;
 
     void handleMessage(Message message);
 };

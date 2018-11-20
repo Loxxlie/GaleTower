@@ -6,7 +6,7 @@ namespace sf
     class Font;
 }
 
-namespace Fonts
+namespace Font
 {
     enum ID
     {
@@ -14,9 +14,16 @@ namespace Fonts
     };
 }
 
-template <typename Resource, typename Identifier>
-class ResourceHolder;
+namespace Texture
+{
+    enum ID
+    {
+        None,
+        NoneSelected
+    };
+}
 
-typedef ResourceHolder<sf::Font, Fonts::ID> FontHolder;
+typedef ResourceHolder<sf::Font, Font::ID> FontHolder;
+typedef ResourceHolder<sf::Texture, Texture::ID> TextureHolder;
 
 #endif

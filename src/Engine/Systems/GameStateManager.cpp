@@ -4,6 +4,7 @@
 
 #include "Engine/Core/Message.hpp"
 #include "Engine/Systems/GameState.hpp"
+#include "Game/States/GreenCircle.hpp"
 
 void GameStateManager::init()
 {}
@@ -56,4 +57,10 @@ void GameStateManager::render(sf::RenderTarget& target) const
 }
 
 void GameStateManager::handleMessage(Message message)
-{}
+{
+    if (message.event == "START_GREENCIRCLE")
+    {
+        GameState* green_circle = new GreenCircle(context, messageBus);
+        pushState(green_circle);
+    }
+}

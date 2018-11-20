@@ -2,6 +2,8 @@
 #define RESOURCEHOLDER_H
 
 #include <map>
+#include <string>
+#include <cassert>
 
 template <typename Resource, typename Identifier>
 class ResourceHolder
@@ -18,5 +20,7 @@ private:
 
     std::map<Identifier, Resource*> resource_map;
 };
+
+#include "Engine/Core/ResourceHolder.inl"
 
 #endif

@@ -1,5 +1,7 @@
 #include "Engine/GUI/Container.hpp"
 
+#include <iostream>
+
 using namespace GUI;
 
 Container::Container()
@@ -30,6 +32,7 @@ void Container::handleEvent(const sf::Event& event)
 {
     if (hasSelection() && children[selected_child]->isActive())
     {
+        std::cout << "had selection and is active" << std::endl;
         children[selected_child]->handleEvent(event);
     }
     else if (event.type == sf::Event::KeyReleased)

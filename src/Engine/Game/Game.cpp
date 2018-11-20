@@ -5,18 +5,18 @@
 #include "Engine/Game/GameController.hpp"
 #include "Engine/Core/ResourceIdentifiers.hpp"
 
-#include "Game/States/GreenCircle.hpp"
+#include "Game/States/DevMenuState.hpp"
+#include "Engine/Core/Context.hpp"
 
 Game::Game()
-{
-    runningFlag = false;
-    messageBus = new MessageBus();
-    statemanager = new GameStateManager(messageBus);
-    gamecontroller = new GameController(messageBus, this);
-    fontholder = new FontHolder();
-
-    window = new sf::RenderWindow(sf::VideoMode(800, 600), "SFML works!");
-}
+: runningFlag(false)
+, messageBus(new MessageBus())
+, gamecontroller(new GameController(messageBus, this))
+, fontholder(FontHolder())
+, textureholder(TextureHolder())
+, window(new sf::RenderWindow(sf::VideoMode(800, 600), "SFML works!"))
+, statemanager(new GameStateManager(Context(*window, textureholder, fontholder), messageBus))
+{}
 
 Game::~Game()
 {
@@ -26,7 +26,6 @@ Game::~Game()
 
     if(window->isOpen())
         window->close();
-    delete window;
 }
 
 void Game::run()
@@ -54,14 +53,18 @@ void Game::update()
 void Game::render()
 {
     window->clear();
-    statemanager->render(*(window));
+    statemanager->render(*window);
     window->display();
 }
 
 void Game::startup()
 {
-    GameState* green_circle = new GreenCircle(messageBus);
-    statemanager->pushState(green_circle);
+	fontholder.load(Font::Development, "resources/Fonts/dev-text.otf");
+    textureholder.load(Texture::None, "resources/Textures/transparent.png");
+    textureholder.load(Texture::NoneSelected, "resources/Textures/transparentselected.png");
+
+    GameState* dev_menu = new DevMenuState(Context(*window, textureholder, fontholder), messageBus);
+    statemanager->pushState(dev_menu);
 
     runningFlag = true;
 }

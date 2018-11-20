@@ -1,7 +1,3 @@
-#include "Engine/Core/ResourceHolder.hpp"
-
-#include <string>
-
 template <typename Resource, typename Identifier>
 void ResourceHolder<Resource, Identifier>::load(Identifier id, const std::string& filename)
 {
