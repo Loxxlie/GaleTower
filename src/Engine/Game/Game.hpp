@@ -5,6 +5,7 @@
 
 #include "Engine/Core/ResourceHolder.hpp"
 #include "Engine/Core/ResourceIdentifiers.hpp"
+#include "Engine/Core/Window.hpp"
 
 class Renderer;
 class MessageBus;
@@ -25,8 +26,14 @@ public:
 
     void closeGame();
 
+    sf::Time getElapsed();
+	void restartClock();
+
 private:
-    bool runningFlag;
+    bool m_isRunning;
+
+    sf::Clock m_clock;
+	sf::Time m_elapsed;
 
     MessageBus *messageBus;
     GameStateManager *statemanager;
@@ -34,7 +41,7 @@ private:
 
     FontHolder fontholder;
     TextureHolder textureholder;
-    sf::RenderWindow* window;
+    Window m_window;
 };
 
 #endif

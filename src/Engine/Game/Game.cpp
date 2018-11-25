@@ -6,37 +6,42 @@
 #include "Engine/Core/ResourceIdentifiers.hpp"
 
 #include "Game/States/DevMenuState.hpp"
-#include "Engine/Core/Context.hpp"
+#include "Engine/Core/SharedContext.hpp"
 
 Game::Game()
-: runningFlag(false)
+: m_isRunning(false)
 , messageBus(new MessageBus())
 , gamecontroller(new GameController(messageBus, this))
 , fontholder(FontHolder())
 , textureholder(TextureHolder())
-, window(new sf::RenderWindow(sf::VideoMode(800, 600), "SFML works!"))
-, statemanager(new GameStateManager(Context(*window, textureholder, fontholder), messageBus))
-{}
+, m_window("SFML works!", sf::Vector2u(800, 600))
+, statemanager(new GameStateManager(SharedContext(m_window, textureholder, fontholder), messageBus))
+{
+    restartClock();
+}
 
 Game::~Game()
 {
     delete messageBus;
     delete statemanager;
     delete gamecontroller;
-
-    if(window->isOpen())
-        window->close();
 }
+
+sf::Time Game::getElapsed(){ return m_elapsed; }
+void Game::restartClock(){ m_elapsed = m_clock.restart(); }
 
 void Game::run()
 {
     startup();
     
-    while (runningFlag)
+    while (m_isRunning)
     {
         sf::Event event;
-        while (window->pollEvent(event))
+        while (m_window.pollEvents(event))
+        {
+            m_window.handleEvents(event);
             statemanager->handleEvents(event);
+        }
 
         update();
         render();
@@ -52,9 +57,9 @@ void Game::update()
 
 void Game::render()
 {
-    window->clear();
-    statemanager->render(*window);
-    window->display();
+    m_window.beginDraw();
+    statemanager->render(*(m_window.getWindow()));
+    m_window.endDraw();
 }
 
 void Game::startup()
@@ -63,10 +68,10 @@ void Game::startup()
     textureholder.load(Texture::None, "resources/Textures/transparent.png");
     textureholder.load(Texture::NoneSelected, "resources/Textures/transparentselected.png");
 
-    GameState* dev_menu = new DevMenuState(Context(*window, textureholder, fontholder), messageBus);
+    GameState* dev_menu = new DevMenuState(SharedContext(m_window, textureholder, fontholder), messageBus);
     statemanager->pushState(dev_menu);
 
-    runningFlag = true;
+    m_isRunning = true;
 }
 
 void Game::shutdown()
@@ -74,6 +79,5 @@ void Game::shutdown()
 
 void Game::closeGame()
 {
-    window->close();
-    runningFlag = false;
+    m_isRunning = false;
 }

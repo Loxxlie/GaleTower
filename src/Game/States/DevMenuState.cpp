@@ -4,7 +4,7 @@
 #include "Engine/GUI/Button.hpp"
 #include "Engine/Core/Message.hpp"
 
-DevMenuState::DevMenuState(Context context, MessageBus *messageBus)
+DevMenuState::DevMenuState(SharedContext context, MessageBus *messageBus)
 : GameState(context, messageBus)
 , m_gui_container()
 {
@@ -32,7 +32,6 @@ void DevMenuState::cleanup()
 
 void DevMenuState::handleEvents(sf::Event event)
 {
-    std::cout << "Got here" << std::endl;
     if (event.type == sf::Event::Closed)
     {
         postMessage(std::string("CLOSE_GAME"));

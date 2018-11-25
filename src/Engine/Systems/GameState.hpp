@@ -4,14 +4,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "Engine/Core/BusNode.hpp"
-#include "Engine/Core/Context.hpp"
+#include "Engine/Core/SharedContext.hpp"
 
 class Message;
 class MessageBus;
 
 class GameState : public BusNode {
 public:
-    GameState(Context context, MessageBus *messageBus) : BusNode(messageBus), m_context(context) {}
+    GameState(SharedContext context, MessageBus *messageBus) : BusNode(messageBus), m_context(context) {}
 
     virtual void init() = 0;
     virtual void cleanup() = 0;
@@ -29,7 +29,7 @@ public:
     virtual void render(sf::RenderTarget& target) const = 0;
 
 protected:
-    Context m_context;
+    SharedContext m_context;
 
 private:
     bool m_isPaused = false;

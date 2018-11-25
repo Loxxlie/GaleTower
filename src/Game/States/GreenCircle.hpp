@@ -13,7 +13,7 @@ class MessageBus;
 class GreenCircle : public GameState
 {
 public:
-    GreenCircle(Context context, MessageBus *messageBus) : GameState(context, messageBus) {}
+    GreenCircle(SharedContext context, MessageBus *messageBus) : GameState(context, messageBus) {}
 
     void init()
     {
@@ -31,6 +31,8 @@ public:
         {
             postMessage(std::string("CLOSE_GAME"));
         }
+
+
     }
 
     void update() {}

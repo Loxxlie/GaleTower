@@ -5,12 +5,12 @@
 #include "Engine/GUI/Container.hpp"
 #include "Engine/Core/ResourceHolder.hpp"
 #include "Engine/Core/ResourceIdentifiers.hpp"
-#include "Engine/Core/Context.hpp"
+#include "Engine/Core/SharedContext.hpp"
 
 class DevMenuState : public GameState
 {
 public:
-    DevMenuState(Context context, MessageBus *messageBus);
+    DevMenuState(SharedContext context, MessageBus *messageBus);
 
     void init();
     void cleanup();

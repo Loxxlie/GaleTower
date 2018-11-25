@@ -5,17 +5,17 @@
 #include <SFML/Graphics.hpp>
 
 #include "Engine/Core/BusNode.hpp"
-#include "Engine/Core/Context.hpp"
+#include "Engine/Core/SharedContext.hpp"
 
 class Message;
 class MessageBus;
 class GameState;
-struct Context;
+struct SharedContext;
 
 class GameStateManager : public BusNode
 {
 public:
-    GameStateManager(Context context, MessageBus *messageBus) : BusNode(messageBus), context(context) {}
+    GameStateManager(SharedContext context, MessageBus *messageBus) : BusNode(messageBus), context(context) {}
 
     void init();
     void cleanup();
@@ -29,7 +29,7 @@ public:
 
 private:
     std::vector<GameState*> stateStack;
-    Context context;
+    SharedContext context;
 
     void handleMessage(Message message);
 };
