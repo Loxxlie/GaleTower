@@ -3,8 +3,6 @@
 
 #include "Engine/Systems/GameState.hpp"
 #include "Engine/GUI/Container.hpp"
-#include "Engine/Core/ResourceHolder.hpp"
-#include "Engine/Core/ResourceIdentifiers.hpp"
 #include "Engine/Core/SharedContext.hpp"
 
 class DevMenuState : public GameState

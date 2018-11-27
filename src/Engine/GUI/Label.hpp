@@ -2,15 +2,16 @@
 #define GUILABEL_H
 
 #include "Engine/GUI/Component.hpp"
-#include "Engine/Core/ResourceHolder.hpp"
-#include "Engine/Core/ResourceIdentifiers.hpp"
+#include <string>
+
+class FontManager;
 
 namespace GUI
 {
 class Label : public Component
 {
 public:
-    Label(const std::string& text, const FontHolder& fonts);
+    Label(const std::string& text, FontManager* fonts);
 
     void setText(const std::string& text);
     void setFont(const sf::Font& font);
@@ -21,7 +22,10 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
+    FontManager* m_fontManager;
+
     sf::Text m_text;
+    std::string m_font;
 };
 }
 

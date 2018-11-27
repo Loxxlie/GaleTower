@@ -1,12 +1,24 @@
 #include "Engine/GUI/Label.hpp"
 #include "SFML/Graphics.hpp"
+#include "Engine/Core/FontManager.hpp"
+
+#include <iostream>
 
 namespace GUI
 {
 
-Label::Label(const std::string& text, const FontHolder& fonts)
-: m_text(text, fonts.get(Font::Development), 16)
-{}
+Label::Label(const std::string& text, FontManager* fonts)
+: m_fontManager(fonts)
+{
+    if (!m_fontManager->requireResource("Development")) 
+    {
+        std::cout << "! Could not set up the font: " << "Development" << std::endl;
+    }
+
+    m_font = "Development";
+
+    m_text = sf::Text(text, *m_fontManager->getResource(m_font), 16);
+}
 
 void Label::setFont(const sf::Font& font)
 {

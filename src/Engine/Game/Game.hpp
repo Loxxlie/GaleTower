@@ -2,13 +2,10 @@
 #define GAME_H
 
 #include <SFML/Graphics.hpp>
-
-#include "Engine/Core/ResourceHolder.hpp"
-#include "Engine/Core/ResourceIdentifiers.hpp"
 #include "Engine/Core/Window.hpp"
 #include "Engine/Core/TextureManager.hpp"
+#include "Engine/Core/FontManager.hpp"
 
-class Renderer;
 class MessageBus;
 class GameStateManager;
 class GameController;
@@ -40,7 +37,7 @@ private:
     GameStateManager *statemanager;
     GameController *gamecontroller;
 
-    FontHolder fontholder;
+    FontManager m_fontManager;
     TextureManager m_textureManager;
     Window m_window;
 };

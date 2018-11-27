@@ -2,12 +2,11 @@
 #define GUIBUTTON_H
 
 #include "Engine/GUI/Component.hpp"
-#include "Engine/Core/ResourceHolder.hpp"
-#include "Engine/Core/ResourceIdentifiers.hpp"
 
 #include <functional>
 
 class TextureManager;
+class FontManager;
 
 namespace GUI
 {
@@ -16,7 +15,7 @@ class Button : public Component
 public:
     typedef std::function<void()> Callback;
 
-    Button(const FontHolder& fonts, TextureManager* textures);
+    Button(FontManager* fonts, TextureManager* textures);
     ~Button();
 
     void setCallback(Callback callback);
@@ -35,10 +34,12 @@ private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
     TextureManager* m_textureManager;
+    FontManager* m_fontManager;
     Callback m_callback;
     sf::Sprite m_sprite;
     std::string m_normalTexture;
     std::string m_selectedTexture;
+    std::string m_font;
     sf::Text m_text;
     bool m_isToggleable;
 

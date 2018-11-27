@@ -1,22 +1,20 @@
 #ifndef SHAREDCONTEXT_H
 #define SHAREDCONTEXT_H
 
-#include "Engine/Core/ResourceHolder.hpp"
-#include "Engine/Core/ResourceIdentifiers.hpp"
-
 class Window;
 class TextureManager;
+class FontManager;
 
 struct SharedContext
 {
-    SharedContext(Window& window, TextureManager& textures, FontHolder& fonts)
+    SharedContext(Window& window, TextureManager& textures, FontManager& fonts)
     : window(&window)
     , textures(&textures)
     , fonts(&fonts)
     {}
 
     Window* window;
-    FontHolder* fonts;
+    FontManager* fonts;
     TextureManager* textures;
 };
 

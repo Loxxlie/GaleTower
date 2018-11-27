@@ -2,37 +2,46 @@
 #include <SFML/Graphics.hpp>
 
 #include "Engine/Core/TextureManager.hpp"
+#include "Engine/Core/FontManager.hpp"
 
 namespace GUI
 {
 
-Button::Button(const FontHolder& fonts, TextureManager* textures)
+Button::Button(FontManager* fonts, TextureManager* textures)
 : m_callback()
 , m_textureManager(textures)
-, m_text("", fonts.get(Font::Development), 14)
+, m_fontManager(fonts)
 , m_isToggleable(false)
 , m_sprite()
 {
-    std::cout << "Requiring None and NoneSelected Resources..." << std::endl;
-    if (!textures->requireResource("None")) 
+    std::cout << "Requiring Button Resources..." << std::endl;
+    if (!m_textureManager->requireResource("None")) 
     {
         std::cout << "! Could not set up the texture: " << "None" << std::endl;
     }
-    if (!textures->requireResource("NoneSelected")) 
+    if (!m_textureManager->requireResource("NoneSelected")) 
     {
         std::cout << "! Could not set up the texture: " << "NoneSelected" << std::endl;
     }
+    if (!m_fontManager->requireResource("Development")) 
+    {
+        std::cout << "! Could not set up the font: " << "Development" << std::endl;
+    } 
+
     m_normalTexture = "None";
     m_selectedTexture = "NoneSelected";
+    m_font = "Development";
 
     m_sprite.setTexture(*textures->getResource(m_normalTexture));
+    m_text = sf::Text("", *m_fontManager->getResource(m_font), 14);
 }
 
 Button::~Button()
 {
-    std::cout << "Releasing None and NoneSelected Resources..." << std::endl;
+    std::cout << "Releasing Button Resources..." << std::endl;
     m_textureManager->releaseResource("None");
     m_textureManager->releaseResource("NoneSelected");
+    m_fontManager->releaseResource("Development");
 }
 
 void Button::setCallback(Callback callback)

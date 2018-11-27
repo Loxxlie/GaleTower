@@ -8,11 +8,11 @@ DevMenuState::DevMenuState(SharedContext context, MessageBus *messageBus)
 : GameState(context, messageBus)
 , m_gui_container()
 {
-    GUI::Label* title = new GUI::Label(std::string("Development Menu"), *(m_context.fonts));
+    GUI::Label* title = new GUI::Label(std::string("Development Menu"), m_context.fonts);
     m_gui_container.addComponent(title);
     m_gui_container.setPosition(20, 20);
 
-    GUI::Button* green_circle = new GUI::Button(*(m_context.fonts), m_context.textures);
+    GUI::Button* green_circle = new GUI::Button(m_context.fonts, m_context.textures);
     green_circle->setPosition(20, 20);
     green_circle->setText("Start SFML Test State");
     green_circle->setCallback([this] ()
