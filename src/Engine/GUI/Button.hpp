@@ -7,6 +7,8 @@
 
 #include <functional>
 
+class TextureManager;
+
 namespace GUI
 {
 class Button : public Component
@@ -14,7 +16,8 @@ class Button : public Component
 public:
     typedef std::function<void()> Callback;
 
-    Button(const FontHolder& fonts, const TextureHolder& textures);
+    Button(const FontHolder& fonts, TextureManager* textures);
+    ~Button();
 
     void setCallback(Callback callback);
     void setText(const std::string& text);
@@ -31,10 +34,11 @@ public:
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+    TextureManager* m_textureManager;
     Callback m_callback;
     sf::Sprite m_sprite;
-    const sf::Texture& m_normalTexture;
-    const sf::Texture& m_selectedTexture;
+    std::string m_normalTexture;
+    std::string m_selectedTexture;
     sf::Text m_text;
     bool m_isToggleable;
 

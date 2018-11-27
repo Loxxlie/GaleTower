@@ -5,21 +5,19 @@
 #include "Engine/Core/ResourceIdentifiers.hpp"
 
 class Window;
+class TextureManager;
 
 struct SharedContext
 {
-    // SharedContext(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, MessageBus& messageBus)
-    SharedContext(Window& window, TextureHolder& textures, FontHolder& fonts)
+    SharedContext(Window& window, TextureManager& textures, FontHolder& fonts)
     : window(&window)
-    //, messagebus(&messageBus)
     , textures(&textures)
     , fonts(&fonts)
     {}
 
     Window* window;
-    // MessageBus* messagebus;
     FontHolder* fonts;
-    TextureHolder* textures;
+    TextureManager* textures;
 };
 
 #endif

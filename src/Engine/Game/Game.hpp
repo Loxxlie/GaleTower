@@ -6,6 +6,7 @@
 #include "Engine/Core/ResourceHolder.hpp"
 #include "Engine/Core/ResourceIdentifiers.hpp"
 #include "Engine/Core/Window.hpp"
+#include "Engine/Core/TextureManager.hpp"
 
 class Renderer;
 class MessageBus;
@@ -40,7 +41,7 @@ private:
     GameController *gamecontroller;
 
     FontHolder fontholder;
-    TextureHolder textureholder;
+    TextureManager m_textureManager;
     Window m_window;
 };
 

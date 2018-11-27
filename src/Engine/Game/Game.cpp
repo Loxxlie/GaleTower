@@ -13,9 +13,9 @@ Game::Game()
 , messageBus(new MessageBus())
 , gamecontroller(new GameController(messageBus, this))
 , fontholder(FontHolder())
-, textureholder(TextureHolder())
+, m_textureManager(TextureManager())
 , m_window("SFML works!", sf::Vector2u(800, 600))
-, statemanager(new GameStateManager(SharedContext(m_window, textureholder, fontholder), messageBus))
+, statemanager(new GameStateManager(SharedContext(m_window, m_textureManager, fontholder), messageBus))
 {
     restartClock();
 }
@@ -65,10 +65,10 @@ void Game::render()
 void Game::startup()
 {
 	fontholder.load(Font::Development, "resources/Fonts/dev-text.otf");
-    textureholder.load(Texture::None, "resources/Textures/transparent.png");
-    textureholder.load(Texture::NoneSelected, "resources/Textures/transparentselected.png");
+    // textureholder.load(Texture::None, "resources/Textures/transparent.png");
+    // textureholder.load(Texture::NoneSelected, "resources/Textures/transparentselected.png");
 
-    GameState* dev_menu = new DevMenuState(SharedContext(m_window, textureholder, fontholder), messageBus);
+    GameState* dev_menu = new DevMenuState(SharedContext(m_window, m_textureManager, fontholder), messageBus);
     statemanager->pushState(dev_menu);
 
     m_isRunning = true;

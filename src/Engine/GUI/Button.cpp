@@ -1,18 +1,38 @@
 #include "Engine/GUI/Button.hpp"
 #include <SFML/Graphics.hpp>
 
+#include "Engine/Core/TextureManager.hpp"
+
 namespace GUI
 {
 
-Button::Button(const FontHolder& fonts, const TextureHolder& textures)
+Button::Button(const FontHolder& fonts, TextureManager* textures)
 : m_callback()
-, m_normalTexture(textures.get(Texture::None))
-, m_selectedTexture(textures.get(Texture::NoneSelected))
+, m_textureManager(textures)
 , m_text("", fonts.get(Font::Development), 14)
 , m_isToggleable(false)
 , m_sprite()
 {
-    m_sprite.setTexture(m_normalTexture);
+    std::cout << "Requiring None and NoneSelected Resources..." << std::endl;
+    if (!textures->requireResource("None")) 
+    {
+        std::cout << "! Could not set up the texture: " << "None" << std::endl;
+    }
+    if (!textures->requireResource("NoneSelected")) 
+    {
+        std::cout << "! Could not set up the texture: " << "NoneSelected" << std::endl;
+    }
+    m_normalTexture = "None";
+    m_selectedTexture = "NoneSelected";
+
+    m_sprite.setTexture(*textures->getResource(m_normalTexture));
+}
+
+Button::~Button()
+{
+    std::cout << "Releasing None and NoneSelected Resources..." << std::endl;
+    m_textureManager->releaseResource("None");
+    m_textureManager->releaseResource("NoneSelected");
 }
 
 void Button::setCallback(Callback callback)
@@ -39,14 +59,14 @@ void Button::select()
 {
     Component::select();
 
-    m_sprite.setTexture(m_selectedTexture);
+    m_sprite.setTexture(*m_textureManager->getResource(m_selectedTexture));
 }
 
 void Button::deselect()
 {
     Component::deselect();
 
-    m_sprite.setTexture(m_normalTexture);
+    m_sprite.setTexture(*m_textureManager->getResource(m_normalTexture));
 }
 
 void Button::activate()
